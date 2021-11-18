@@ -9,31 +9,15 @@ namespace Support_Bank
 {
     class Program
     {
-        static List<Transaction> ReadCsv(string filename)
-        {
-            List<Transaction> listOfTransactions = new List<Transaction>();
-
-            StreamReader sr = new StreamReader(filename);
-            string line;
-            string[] row = new string [5];
-            line = sr.ReadLine();
-            while ((line = sr.ReadLine()) != null)
-            {
-                row = line.Split(',');
-                listOfTransactions.Add(new Transaction(row));
-            }
-
-            return listOfTransactions;
-        }
-
-       
+      
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            List<Transaction> testlist =  ReadCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
-            
-            
-            
+            // List<Transaction> testlist =  ReadCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
+            AnnualAccount Account2014 = new AnnualAccount();
+            Account2014.GenerateTransactionList("C:/Work/Training/Support_Bank/Transactions2014.csv");
+            Account2014.GeneratePeopleList();
+            Account2014.AssignTransactions();
         }
     }
 }
