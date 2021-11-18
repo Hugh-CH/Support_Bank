@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.VisualBasic;
 using NLog;
 
 namespace Support_Bank
@@ -16,19 +17,34 @@ namespace Support_Bank
 
         public void GenerateTransactionList(string filename)
         {
+            logger.Debug($"Seting up CSV reader for {filename}");
             List<Transaction> listOfTransactions = new List<Transaction>();
 
             StreamReader sr = new StreamReader(filename);
             
             // Skip first line
             sr.ReadLine();
+            logger.Debug("First Line Skipped");
             
-            while ((sr.ReadLine()) != null)
+            while (sr.Peek() >= 0)
             {
-                string [] row = sr.ReadLine().Split(',');
-                listOfTransactions.Add(new Transaction(row));
-            }
+                logger.Debug($"Reading line {listOfTransactions.Count+2} of CSV");
 
+                string [] row = sr.ReadLine().Split(',');
+                
+                try
+                {
+                    listOfTransactions.Add(new Transaction(row));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error in line {listOfTransactions.Count+2}",e);
+                    throw;
+                }
+                
+            }
+            
+            logger.Info("CSV read completely");
             this.listOfAllTransactions = listOfTransactions;
         }
 
@@ -63,6 +79,7 @@ namespace Support_Bank
 
         public void SetUpFromCsv(string filename)
         {
+            logger.Debug("Seting up bank from CSV");
             GenerateTransactionList(filename);
             GeneratePeopleList();
             AssignTransactions();

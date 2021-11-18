@@ -12,19 +12,17 @@ namespace Support_Bank
 {
     class Program
     {
-      
+      private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
             
             var config = new LoggingConfiguration();
-            var target = new FileTarget { FileName = @"C:\Work\Support_Bank\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
+            var target = new FileTarget { FileName = @"C:\Work\Training\Support_Bank\Logs\SupportBank.log", Layout = @"${longdate} ${level} - ${logger}: ${message}" };
             config.AddTarget("File Logger", target);
             config.LoggingRules.Add(new LoggingRule("*", LogLevel.Debug, target));
             LogManager.Configuration = config;
             
-            
-            
-            
+            logger.Debug("Program Start");
             
             
             Bank ABank = new Bank(); 
