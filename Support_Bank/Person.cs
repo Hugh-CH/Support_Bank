@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Security.Cryptography.X509Certificates;
+using NLog;
 
 namespace Support_Bank
 {
     public class Person
     {
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        
         public string name;
         public List<Transaction> listOfPaymentsOut;
         public List<Transaction> listOfPaymentsIn;
@@ -55,7 +58,7 @@ namespace Support_Bank
             
             Console.WriteLine("");
             
-            Console.WriteLine($"Payments Made By {name}");
+            Console.WriteLine($"Payments Made to {name}");
             Console.WriteLine("=========================");
             
             foreach (Transaction payment in listOfPaymentsIn)
@@ -64,7 +67,6 @@ namespace Support_Bank
             }
             
             Console.WriteLine("=========================");
-            Console.WriteLine("");
             
             float balance = CalculateBalance();
             switch (balance>=0)

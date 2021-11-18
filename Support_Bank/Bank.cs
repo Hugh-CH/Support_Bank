@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using NLog;
 
 namespace Support_Bank
 {
     public class Bank
     {
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        
         public List<Transaction> listOfAllTransactions;
         public List<Person> listOfAllPeople;
 
@@ -16,12 +19,13 @@ namespace Support_Bank
             List<Transaction> listOfTransactions = new List<Transaction>();
 
             StreamReader sr = new StreamReader(filename);
-            string line;
-            string[] row = new string [5];
-            line = sr.ReadLine();
-            while ((line = sr.ReadLine()) != null)
+            
+            // Skip first line
+            sr.ReadLine();
+            
+            while ((sr.ReadLine()) != null)
             {
-                row = line.Split(',');
+                string [] row = sr.ReadLine().Split(',');
                 listOfTransactions.Add(new Transaction(row));
             }
 

@@ -1,9 +1,12 @@
 ﻿using System;
+using NLog;
 
 namespace Support_Bank
 {
     public class Transaction
     {
+        private static readonly ILogger logger = LogManager.GetCurrentClassLogger();
+        
         public string date;
         public string from;
         public string to;
