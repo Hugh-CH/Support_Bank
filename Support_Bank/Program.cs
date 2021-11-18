@@ -12,10 +12,11 @@ namespace Support_Bank
       
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            // List<Transaction> testlist =  ReadCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
             Bank Account2014 = new Bank();
             Account2014.SetUpFromCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
+            //Account2014.ListAll();
+            Account2014.ListIndividual("Sarah T");
+            
         }
     }
 }

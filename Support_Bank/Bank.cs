@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -62,7 +63,31 @@ namespace Support_Bank
             GeneratePeopleList();
             AssignTransactions();
         }
-        
-        
+
+        public void ListAll()
+        {
+            foreach (Person person in listOfAllPeople)
+            {
+                float balance = person.CalculateBalance();
+                switch (balance>=0)
+                {
+                case    true:
+                    Console.WriteLine($"{person.name} is owed {balance:c}");
+                    break;
+                case false:
+                    balance = Math.Abs(balance);
+                    Console.WriteLine($"{person.name} owes {balance:C}");
+                    break;
+                }
+                
+            }
+        }
+
+
+        public void ListIndividual(string name)
+        {
+            Person person = listOfAllPeople.Find(item => item.name == name);
+            person.PrintTransactions();
+        }
     }
 }
