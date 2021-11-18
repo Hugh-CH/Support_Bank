@@ -14,10 +14,8 @@ namespace Support_Bank
         {
             Console.WriteLine("Hello World!");
             // List<Transaction> testlist =  ReadCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
-            AnnualAccount Account2014 = new AnnualAccount();
-            Account2014.GenerateTransactionList("C:/Work/Training/Support_Bank/Transactions2014.csv");
-            Account2014.GeneratePeopleList();
-            Account2014.AssignTransactions();
+            Bank Account2014 = new Bank();
+            Account2014.SetUpFromCsv("C:/Work/Training/Support_Bank/Transactions2014.csv");
         }
     }
 }

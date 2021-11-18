@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Support_Bank
 {
-    public class AnnualAccount
+    public class Bank
     {
         public List<Transaction> listOfAllTransactions;
         public List<Person> listOfAllPeople;
@@ -55,5 +55,14 @@ namespace Support_Bank
                 payee.AddPaymentIn(payment);
             } 
         }
+
+        public void SetUpFromCsv(string filename)
+        {
+            GenerateTransactionList(filename);
+            GeneratePeopleList();
+            AssignTransactions();
+        }
+        
+        
     }
 }
